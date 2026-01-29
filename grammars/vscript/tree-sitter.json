@@ -1,0 +1,11 @@
+{
+  "metadata": {
+    "name": "vscript",
+    "version": "0.1.0"
+  },
+  "scope": "source.vscript",
+  "file-types": ["vs"],
+  "injection-regex": "^(vscript|vs)$",
+  "highlights": "queries/highlights.scm",
+  "locals": "queries/locals.scm"
+}

@@ -2,13 +2,10 @@
   "name": "tree-sitter-vscript",
   "version": "0.1.0",
   "description": "VScript grammar for tree-sitter",
-  "main": "bindings/node",
-  "types": "bindings/node",
   "scripts": {
     "build": "tree-sitter generate",
     "build-wasm": "tree-sitter build-wasm",
     "test": "tree-sitter test",
-    "prestart": "tree-sitter build --wasm",
     "start": "tree-sitter playground"
   },
   "keywords": [
@@ -19,27 +16,12 @@
   ],
   "files": [
     "grammar.js",
-    "binding.gyp",
-    "prebuilds/**",
-    "bindings/node/*",
+    "tree-sitter.json",
     "queries/*",
     "src/**"
   ],
-  "optionalDependencies": {
-    "node-addon-api": "^7.0.0",
-    "node-gyp-build": "^4.6.0"
-  },
   "devDependencies": {
-    "tree-sitter-cli": "^0.20.8",
-    "prebuildify": "^6.0.0"
-  },
-  "peerDependencies": {
-    "tree-sitter": "^0.20.4"
-  },
-  "peerDependenciesMeta": {
-    "tree_sitter": {
-      "optional": true
-    }
+    "tree-sitter-cli": "^0.20.8"
   },
   "author": "VScript Team",
   "license": "MIT",
