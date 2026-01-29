@@ -3,8 +3,10 @@ name = "VScript"
 description = "Support for the VScript programming language"
 version = "0.1.0"
 schema_version = 1
-authors = ["VScript Team <team@vscript.dev>"]
+authors = ["github.com/m-epasta"]
 repository = "https://github.com/m-epasta/zed-vscript"
 
 [grammars.vscript]
+repository = "https://github.com/m-epasta/zed-vscript"
+rev = "main"
 path = "grammars/vscript"
