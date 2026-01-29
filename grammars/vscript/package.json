@@ -42,5 +42,6 @@
       "highlights": "queries/highlights.scm",
       "locals": "queries/locals.scm"
     }
-  ]
+  ],
+  "main": "bindings/node"
 }

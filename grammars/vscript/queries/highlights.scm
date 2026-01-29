@@ -33,7 +33,7 @@
 
 (number_literal) @number
 (string_literal) @string
-(interpolated_string) @string
+(template_chars) @string
 
 ; String interpolation
 (string_interpolation

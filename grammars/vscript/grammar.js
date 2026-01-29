@@ -30,9 +30,13 @@ module.exports = grammar({
     // Literals
     string_literal: ($) =>
       choice(
-        seq('"', repeat(choice(/[^"\\]/, /\\./)), '"'),
+        seq('"', repeat(choice($.template_chars, $.string_interpolation)), '"'),
         seq("'", repeat(choice(/[^'\\]/, /\\./)), "'"),
       ),
+
+    template_chars: ($) => /[^"\\$]+|\\.|\$[^{]/,
+
+    string_interpolation: ($) => seq("${", $._expression, "}"),
 
     number_literal: ($) => /\d+(\.\d+)?/,
 
