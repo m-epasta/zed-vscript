@@ -7,6 +7,4 @@ authors = ["github.com/m-epasta"]
 repository = "https://github.com/m-epasta/zed-vscript"
 
 [grammars.vscript]
-repository = "https://github.com/m-epasta/zed-vscript"
-rev = "7f62eced2792a362ffeeb19dd9a70bbcaf3a521d"
 path = "grammars/vscript"
