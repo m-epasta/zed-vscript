@@ -9,4 +9,3 @@ repository = "https://github.com/m-epasta/zed-vscript"
 [grammars.vscript]
 repository = "https://github.com/m-epasta/tree-sitter-vscript"
 rev = "50accba7d0c9267b2fe46e3561f833170d11a968"
-path = "grammars/vscript"
