@@ -8,5 +8,5 @@ repository = "https://github.com/m-epasta/zed-vscript"
 
 [grammars.vscript]
 repository = "file:///home/m-epasta/vscript_repo/zed-vscript"
-rev = "HEAD"
+rev = "201685131e6383d6b94cbb82763a1ca1d2bf8fc4"
 path = "grammars/vscript"
