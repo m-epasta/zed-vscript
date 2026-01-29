@@ -3,10 +3,8 @@
   (source_file)
   (function_declaration)
   (method_declaration)
-  (function_expression)
   (class_declaration)
   (block)
-  (try_statement)
   (for_statement)
 ] @local.scope
 
@@ -36,5 +34,4 @@
 (import_statement
   alias: (identifier) @local.definition.import)
 
-; Exports
-(export_statement) @local.definition.export
+; Note: export_statement not defined in grammar

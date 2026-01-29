@@ -8,17 +8,9 @@
   "while"
   "for"
   "return"
-  "this"
-  "super"
   "import"
-  "export"
   "async"
   "await"
-  "try"
-  "catch"
-  "match"
-  "struct"
-  "enum"
   "and"
   "or"
 ] @keyword
@@ -29,7 +21,7 @@
   "false"
 ] @boolean
 
-"nil" @constant.builtin
+(nil_literal) @constant.builtin
 
 (number_literal) @number
 (string_literal) @string
@@ -50,14 +42,8 @@
 (method_declaration
   name: (identifier) @function.method)
 
-(function_expression) @function
-
-(call_expression
-  function: (identifier) @function.call)
-
-(call_expression
-  function: (member_expression
-    property: (identifier) @function.method.call))
+; Function calls - highlight all call expressions for now
+(call_expression) @function.call
 
 ; Classes
 (class_declaration
@@ -132,3 +118,6 @@
 
 ; Special
 "${" @punctuation.special
+
+; This expression
+(this_expression) @variable.builtin

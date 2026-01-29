@@ -96,3 +96,7 @@ Thumbs.db
 
 # Zed extension specific
 *.vsix
+
+
+# Rust target
+target/
