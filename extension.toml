@@ -15,4 +15,7 @@ languages = ["vscript"]
 name = "vscript-lsp"
 
 [slash_commands]
-vslp-logs = { description = "View VScript LSP logs", requires_argument = true }
+vslp-logs = { description = "View VScript LSP logs", requires_argument = false }
+
+[tasks."vslp: view logs"]
+command = "cat /tmp/vslp.log"
