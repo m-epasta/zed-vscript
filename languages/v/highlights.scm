@@ -1,8 +1,7 @@
 (ERROR) @error
 
 [
-    (line_comment)
-    (block_comment)
+    (comment)
 ] @comment
 
 (identifier) @variable
