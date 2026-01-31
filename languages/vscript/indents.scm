@@ -1,6 +1,5 @@
 (block) @indent
 (parameter_list) @indent
-(argument_list) @indent
 (array_expression) @indent
 (map_expression) @indent
 
