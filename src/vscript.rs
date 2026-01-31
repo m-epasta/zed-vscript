@@ -72,7 +72,8 @@ fn language_server_bin_path(
         .assets
         .iter()
         .find(|asset| asset.name == asset_name)
-        .ok_or_else(|| format!("no asset found matching {:?}", asset_name))?;
+        .or_else(|| release.assets.iter().find(|asset| asset.name == "vslp"))
+        .ok_or_else(|| format!("no asset found matching {:?} or 'vslp'", asset_name))?;
 
     if ext.current_version != asset.download_url
         || !fs::metadata(&asset_name).map_or(false, |stat| stat.is_file())
