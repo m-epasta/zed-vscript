@@ -8,7 +8,7 @@ repository = "https://github.com/m-epasta/zed-vscript"
 
 [grammars.vscript]
 repository = "https://github.com/m-epasta/vscript-tree-sitter"
-commit = "4f752c7"
+commit = "869cf65"
 
 [language_servers.vscript]
 languages = ["vscript"]
