@@ -13,4 +13,3 @@ commit = "2b2bc7a1a9c498beb73dc00142134da62a7e2883"
 [language_servers.vscript]
 languages = ["vscript"]
 name = "vscript-lsp"
-download_url = "https://github.com/m-epasta/vslp/releases/download/latest/vslp"

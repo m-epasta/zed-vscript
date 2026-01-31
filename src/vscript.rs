@@ -43,7 +43,7 @@ fn language_server_bin_path(
     );
 
     let asset_name = format!(
-        "vls-{os}-{arch}{extension}",
+        "vslp-{os}-{arch}{extension}",
         arch = match arch {
             zed::Architecture::Aarch64 => "arm64",
             zed::Architecture::X86 => "x86",
