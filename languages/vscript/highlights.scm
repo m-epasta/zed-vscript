@@ -6,35 +6,32 @@
 (number_literal) @number
 (string_literal) @string
 (interpolated_string) @string
-(boolean_literal) @boolean
 (nil_literal) @constant.builtin
+
+; Booleans
+"true" @boolean
+"false" @boolean
 
 ; Keywords
 [
  "as"
- "assert"
- "break"
- "const"
- "continue"
+ "async"
+ "await"
+ "catch"
+ "class"
  "else"
  "enum"
  "fn"
  "for"
- "go"
  "if"
  "import"
- "in"
- "interface"
- "is"
- "lock"
+ "let"
  "match"
- "pub"
+ "module"
  "return"
  "struct"
- "class"
- "let"
+ "this"
  "try"
- "catch"
  "while"
 ] @keyword
 
@@ -59,34 +56,24 @@
 [
  "++"
  "--"
-
  "+"
  "-"
  "*"
  "/"
  "%"
-
- "~"
- "&"
- "|"
- "^"
-
  "!"
  "&&"
  "||"
  "!="
-
  "<"
  ">"
  "<="
  ">="
-
  "+="
  "-="
  "*="
  "/="
  "|="
-
  "="
  "=="
  "=>"
