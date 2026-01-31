@@ -7,6 +7,7 @@
 (string_literal) @string
 (interpolated_string) @string
 (nil_literal) @constant.builtin
+(this_expression) @variable.builtin
 
 ; Booleans
 "true" @boolean
@@ -30,7 +31,6 @@
  "module"
  "return"
  "struct"
- "this"
  "try"
  "while"
 ] @keyword
