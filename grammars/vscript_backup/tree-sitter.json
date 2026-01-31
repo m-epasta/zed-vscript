@@ -1,0 +1,27 @@
+{
+  "grammars": [
+    {
+      "name": "vscript",
+      "camelcase": "VScript",
+      "scope": "source.vscript",
+      "path": ".",
+      "file_types": ["vs", "vscript", "mvs"]
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "VScript language grammar",
+    "links": {
+      "repository": "https://github.com/m-epasta/vscript-tree-sitter"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true
+  }
+}
