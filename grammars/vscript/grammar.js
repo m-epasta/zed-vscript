@@ -65,15 +65,46 @@ conflicts: ($) => [
   [$.identifier_pattern, $.variant_pattern],
   [$._primary_expression, $.match_arm],
   [$.call_expression],
+  [$.if_statement],
+  [$.expression_statement, $.call_expression],
+  [$.expression_statement, $.member_expression],
+  [$.expression_statement, $.index_expression],
+  [$.expression_statement, $.binary_expression],
+  [$.expression_statement, $.assignment_expression],
+  [$.expression_statement, $.logical_expression],
+  [$.expression_statement, $.unary_expression],
+  [$.expression_statement, $.postfix_expression],
+  [$.expression_statement, $._primary_expression],
+  [$.expression_statement],
+  [$.var_declaration],
+  [$.return_statement],
+  [$.return_statement, $.call_expression],
+  [$.return_statement, $.member_expression],
+  [$.return_statement, $.index_expression],
+  [$.return_statement, $.binary_expression],
+  [$.return_statement, $.assignment_expression],
+  [$.var_declaration, $.call_expression],
+  [$.var_declaration, $.member_expression],
+  [$.var_declaration, $.index_expression],
+  [$.var_declaration, $.binary_expression],
+  [$.var_declaration, $.assignment_expression],
+  [$.import_statement, $.call_expression],
+  [$.import_statement, $.member_expression],
+  [$.import_statement, $.index_expression],
+  [$.import_statement, $.binary_expression],
+  [$.module_declaration, $.call_expression],
+  [$.import_statement],
+  [$.module_declaration],
 ],
 
 	rules: {
-		source_file: ($) => seq(optional(seq($.module_declaration, $._terminator)), repeat($._statement), optional($._terminator)),
+		source_file: ($) => repeat($._statement),
 
 		module_declaration: ($) => seq("module", $.identifier),
 
 		_statement: ($) =>
 			choice(
+				$.module_declaration,
 				$.class_declaration,
 				$.struct_declaration,
 				$.enum_declaration,
@@ -87,6 +118,7 @@ conflicts: ($) => [
 				$.try_statement,
 				$.return_statement,
 				$.block,
+				$._terminator,
 			),
 
 		class_declaration: ($) =>
@@ -190,9 +222,6 @@ conflicts: ($) => [
 				"}",
 			),
 
-		var_declaration: ($) =>
-			seq("let", $.identifier, optional(seq("=", $._expression)), $._terminator),
-
 		import_statement: ($) =>
 			seq(
 				"import",
@@ -200,15 +229,18 @@ conflicts: ($) => [
 					seq('"', /[^"]+/, '"'),
 					seq($.identifier, repeat(seq(":", $.identifier)), optional(seq("as", $.identifier))),
 				),
-				$._terminator,
+				optional($._terminator),
 			),
 
-		expression_statement: ($) => seq($._expression, $._terminator),
+		var_declaration: ($) =>
+			seq("let", $.identifier, optional(seq("=", $._expression)), optional($._terminator)),
 
-if_statement: ($) =>
-  prec.left(seq("if", "(", $._expression, ")", $._statement, optional(seq("else", $._statement)))),
+		expression_statement: ($) => seq($._expression, optional($._terminator)),
 
-		while_statement: ($) => seq("while", "(", $._expression, ")", $._statement),
+		if_statement: ($) =>
+			prec.left(seq("if", "(", $._expression, ")", field("body", choice($._statement, prec(1, $.block))), optional(seq("else", field("alternative", choice($._statement, prec(1, $.block))))))),
+
+		while_statement: ($) => seq("while", "(", $._expression, ")", field("body", choice($._statement, prec(1, $.block)))),
 
 		for_statement: ($) =>
 			seq(
@@ -239,7 +271,7 @@ if_statement: ($) =>
 				"}",
 			),
 
-		return_statement: ($) => seq("return", optional($._expression), $._terminator),
+		return_statement: ($) => seq("return", optional($._expression), optional($._terminator)),
 
 		block: ($) => seq("{", repeat($._statement), "}"),
 
@@ -309,14 +341,13 @@ binary_expression: ($) =>
 
 		literal: ($) => choice($.number_literal, $.string_literal, $.boolean_literal, $.nil_literal),
 
-		number_literal: ($) => 
-		choice(
-			hex_literal,
-			oct_literal,
-			binary_literal,
-			// Decimal with optional fractional part
-			token(seq(decimal_literal, optional(seq(".", decimal_digits)))),
-		),
+		number_literal: ($) =>
+			token(choice(
+				hex_literal,
+				oct_literal,
+				binary_literal,
+				seq(decimal_literal, optional(seq(".", decimal_digits))),
+			)),
 
 		string_literal: ($) => seq('"', repeat(choice(/[^\\"]+/, seq("\\", /./))), '"'),
 
