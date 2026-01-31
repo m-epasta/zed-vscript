@@ -13,3 +13,6 @@ commit = "c73489dcde48eba65ae20f7394c0ba022a101506"
 [language_servers.vscript]
 languages = ["vscript"]
 name = "vscript-lsp"
+
+[slash_commands]
+vslp-logs = { description = "View VScript LSP logs" }

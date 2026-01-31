@@ -128,7 +128,7 @@ impl zed::Extension for Extension {
     ) -> zed::Result<zed::Command> {
         Ok(zed::Command {
             command: self.vslp_path(language_server_id, wtree)?,
-            args: vec![],
+            args: vec!["--log-file".to_string(), "/tmp/vslp.log".to_string()],
             env: Default::default(),
         })
     }
@@ -165,6 +165,28 @@ impl zed::Extension for Extension {
             filter_range: (0..label.len()).into(),
             code: label,
         })
+    }
+
+    fn run_slash_command(
+        &self,
+        command: zed::SlashCommand,
+        _args: Vec<String>,
+        _worktree: Option<&zed::Worktree>,
+    ) -> zed::Result<zed::SlashCommandOutput, String> {
+        match command.name.as_str() {
+            "vslp-logs" => {
+                let logs = std::fs::read_to_string("/tmp/vslp.log")
+                    .map_err(|e| format!("failed to read logs: {}", e))?;
+                Ok(zed::SlashCommandOutput {
+                    text: logs.clone(),
+                    sections: vec![zed::SlashCommandOutputSection {
+                        range: (0..logs.len()).into(),
+                        label: "vslp.log".to_string(),
+                    }],
+                })
+            }
+            _ => Err(format!("unknown slash command: {}", command.name)),
+        }
     }
 }
 
