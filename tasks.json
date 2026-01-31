@@ -1,0 +1,6 @@
+[
+  {
+    "label": "vslp: view logs",
+    "command": "cat /tmp/vslp.log"
+  }
+]
