@@ -22,7 +22,7 @@
 
 ; Calls
 (call_expression
-  function: (identifier) @function)
+  function: (variable_expression (identifier) @function))
 (call_expression
   function: (member_expression
     property: (identifier) @method))
