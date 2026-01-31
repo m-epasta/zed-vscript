@@ -1,5 +1,8 @@
+(ERROR) @error
+
 [
-    (comment)
+    (line_comment)
+    (block_comment)
 ] @comment
 
 (identifier) @variable
@@ -51,9 +54,9 @@
 ] @keyword
 
 [
-    (true) @boolean
-    (false) @boolean
-]
+    (true)
+    (false)
+] @boolean
 
 [
     "."
@@ -70,6 +73,8 @@
  "["
  "]"
 ] @punctuation.bracket
+
+(array_creation) @punctuation.bracket
 
 [
  "++"
