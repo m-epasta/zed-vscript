@@ -1,5 +1,3 @@
-(ERROR) @error
-
 [
     (comment)
 ] @comment
@@ -53,9 +51,9 @@
 ] @keyword
 
 [
-    (true)
-    (false)
-] @boolean
+    (true) @boolean
+    (false) @boolean
+]
 
 [
     "."
@@ -72,8 +70,6 @@
  "["
  "]"
 ] @punctuation.bracket
-
-(array_creation) @punctuation.bracket
 
 [
  "++"
