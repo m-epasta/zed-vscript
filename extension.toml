@@ -7,5 +7,9 @@ authors = ["github.com/m-epasta"]
 repository = "https://github.com/m-epasta/zed-vscript"
 
 [grammars.vscript]
-repository = "https://github.com/m-epasta/tree-sitter-vscript"
-rev = "50accba7d0c9267b2fe46e3561f833170d11a968"
+repository = "https://github.com/m-epasta/zed-vscript/grammars/vscript/"
+commit = "4f752c7"
+
+[language_servers.vscript]
+languages = ["vscript"]
+name = "LanguageServer.vs"

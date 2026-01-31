@@ -1,0 +1,16 @@
+name = "vscript"
+grammar = "vscript"
+path_suffixes = ["vs", "mvs", "vscript"]
+first_line_pattern = "^(class|struct|enum|fn|let|import)"
+line_comments = ["//"]
+autoclose_before = ";.,=}])"
+brackets = [
+    { start = "{", end = "}", close = true, new_line = true },
+    { start = "(", end = ")", close = true, new_line = false },
+    { start = "[", end = "]", close = true, new_line = false },
+    { start = "\"", end = "\"", close = true, new_line = false },
+    { start = "'", end = "'", close = true, new_line = false },
+    { start = "/*", end = "*/", close = true, newline = true, not_in = ["comment", "string"] },
+]
+word_characters = ["$", "#"]
+tab_size = 4
