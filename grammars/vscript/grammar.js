@@ -63,7 +63,7 @@ conflicts: ($) => [
   [$.block, $.map_expression],
   [$.string_literal, $.interpolated_string],
   [$.identifier_pattern, $.variant_pattern],
-  [$.primary_expression, $.match_arm],
+  [$._primary_expression, $.match_arm],
   [$.call_expression],
 ],
 
@@ -253,7 +253,7 @@ if_statement: ($) =>
 				$.member_expression,
 				$.index_expression,
 				$.postfix_expression,
-				$.primary_expression,
+				$._primary_expression,
 			),
 
 assignment_expression: ($) =>
@@ -294,7 +294,7 @@ binary_expression: ($) =>
 
 		postfix_expression: ($) => seq($._expression, choice("++", "--")),
 
-		primary_expression: ($) =>
+		_primary_expression: ($) =>
 			choice(
 				$.literal,
 				$.variable_expression,
