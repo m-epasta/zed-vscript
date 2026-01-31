@@ -60,13 +60,7 @@ fn language_server_bin_path(
         },
     );
 
-    let release = zed::latest_github_release(
-        "m-epasta/vslp",
-        zed::GithubReleaseOptions {
-            require_assets: true,
-            pre_release: false,
-        },
-    )?;
+    let release = zed::github_release_by_tag_name("m-epasta/vslp", "latest")?;
 
     let asset = release
         .assets
