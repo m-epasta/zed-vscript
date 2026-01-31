@@ -370,7 +370,9 @@ variant_pattern: ($) =>
   ),
 
 		interpolated_string: ($) =>
-			seq('"', repeat(choice(/[^\\"$]+/, seq("\\", /./), seq("${", $._expression, "}"))), '"'),
+			seq('"', repeat(choice(/[^\\"$]+/, seq("\\", /./), $.interpolation)), '"'),
+
+		interpolation: ($) => seq("${", $._expression, "}"),
 
 		struct_field: ($) => seq($._identifier, $._identifier, optional(seq("=", $._expression))),
 
