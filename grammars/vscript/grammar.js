@@ -162,17 +162,27 @@ conflicts: ($) => [
 			),
 
 		function_declaration: ($) =>
-		seq(
-			optional("async"),
-			"fn",
-			$._identifier,
-			"(",
-			optional(seq($._identifier, repeat(seq(",", $._terminator, $._identifier)))),
-			")",
-			"{",
-			repeat($._statement),
-			"}",
-		),
+			seq(
+				optional("async"),
+				"fn",
+				field("name", $._identifier),
+				field("parameters", $.parameter_list),
+				field("body", $.block),
+			),
+
+		parameter_list: ($) =>
+			seq(
+				"(",
+				optional(seq($._identifier, repeat(seq(",", $._terminator, $._identifier)))),
+				")",
+			),
+
+		block: ($) =>
+			seq(
+				"{",
+				repeat($._statement),
+				"}",
+			),
 
 		var_declaration: ($) =>
 			seq("let", $._identifier, optional(seq("=", $._expression)), $._terminator),

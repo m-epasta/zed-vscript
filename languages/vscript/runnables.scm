@@ -1,18 +1,15 @@
-; Run functions with test attributes
+; Run functions with test prefix
 (
-  (
-    (function_declaration @_ @run
-      (#has-ancestor? @_ (attribute (identifier) @attr (#eq? @attr "test")))
-  ) @_
+  (function_declaration
+    name: (identifier) @run
+    (#match? @run "^test_")) @test
   (#set! tag v-test)
 )
 
-
 ; Run the main function
 (
-  (
-    (function_declaration name: (_) @run
-      (#eq? @run "main"))
-  ) @_
+  (function_declaration
+    name: (identifier) @run
+    (#eq? @run "main")) @main
   (#set! tag v-main)
 )
