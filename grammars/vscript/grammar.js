@@ -92,73 +92,79 @@ conflicts: ($) => [
 		class_declaration: ($) =>
 			seq(
 				"class",
-				$.identifier,
-				"{",
-				repeat(
-					seq(
-						repeat(
-							seq(
-								"@[",
-								repeat(
-									seq(
-										$.identifier,
-										optional(seq(":", $._expression)),
-										optional(seq("(", $._expression, ")")),
-										optional(","),
+				field("name", $.identifier),
+				field("body", seq(
+					"{",
+					repeat(
+						seq(
+							repeat(
+								seq(
+									"@[",
+									repeat(
+										seq(
+											$.identifier,
+											optional(seq(":", $._expression)),
+											optional(seq("(", $._expression, ")")),
+											optional(","),
+										),
 									),
+									"]",
 								),
-								"]",
 							),
+							optional($._terminator),
+							$.method,
 						),
-						optional($._terminator),
-						$.method,
 					),
-				),
-				"}",
+					"}",
+				)),
 			),
 
 		struct_declaration: ($) =>
 			seq(
 				"struct",
-				$.identifier,
-				"{",
-				repeat(
-					seq(
-						repeat(
-							seq(
-								"@[",
-								repeat(
-									seq(
-										$.identifier,
-										optional(seq(":", $._expression)),
-										optional(seq("(", $._expression, ")")),
-										optional(","),
+				field("name", $.identifier),
+				field("body", seq(
+					"{",
+					repeat(
+						seq(
+							repeat(
+								seq(
+									"@[",
+									repeat(
+										seq(
+											$.identifier,
+											optional(seq(":", $._expression)),
+											optional(seq("(", $._expression, ")")),
+											optional(","),
+										),
 									),
+									"]",
 								),
-								"]",
 							),
+							optional($._terminator),
+							$.struct_field,
+							optional(seq(",", $._terminator)),
 						),
-						optional($._terminator),
-						$.struct_field,
-						optional(seq(",", $._terminator)),
 					),
-				),
-				"}",
+					"}",
+				)),
 			),
 
 		enum_declaration: ($) =>
 			seq(
 				"enum",
-				$.identifier,
-				"{",
-				repeat(
-					seq(
-						$.identifier,
-						optional(seq("(", repeat(seq($.identifier, optional(seq(",", $._terminator)))), ")")),
-						optional(seq(",", $._terminator)),
+				field("name", $.identifier),
+				field("body", seq(
+					"{",
+					repeat(
+						seq(
+							$.identifier,
+							optional(seq("(", repeat(seq($.identifier, optional(seq(",", $._terminator)))), ")")),
+							optional(seq(",", $._terminator)),
+						),
 					),
-				),
-				"}",
+					"}",
+				)),
 			),
 
 		function_declaration: ($) =>
@@ -274,13 +280,15 @@ binary_expression: ($) =>
 
 		call_expression: ($) =>
 			seq(
-				$._expression,
-				"(",
-				optional(seq($._expression, repeat(seq(",", $._terminator, $._expression)))),
-				")",
+				field("function", $._expression),
+				field("arguments", seq(
+					"(",
+					optional(seq($._expression, repeat(seq(",", $._terminator, $._expression)))),
+					")",
+				)),
 			),
 
-		member_expression: ($) => seq($._expression, ".", $.identifier),
+		member_expression: ($) => seq(field("object", $._expression), ".", field("property", $.identifier)),
 
 		index_expression: ($) => seq($._expression, "[", $._expression, "]"),
 
@@ -390,17 +398,13 @@ variant_pattern: ($) =>
 		struct_field: ($) => seq($.identifier, $.identifier, optional(seq("=", $._expression))),
 
 		method: ($) =>
-		seq(
-			optional("async"),
-			"fn",
-			$.identifier,
-			"(",
-			optional(seq($.identifier, repeat(seq(",", $._terminator, $.identifier)))),
-			")",
-			"{",
-			repeat($._statement),
-			"}",
-		),
+			seq(
+				optional("async"),
+				"fn",
+				field("name", $.identifier),
+				field("parameters", $.parameter_list),
+				field("body", $.block),
+			),
 
 		identifier: ($) => /[a-zA-Zα-ωΑ-Ωµ_][a-zA-Zα-ωΑ-Ωµ_0-9]*/,
 
