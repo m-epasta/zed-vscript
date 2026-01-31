@@ -241,7 +241,7 @@ if_statement: ($) =>
 			),
 
 assignment_expression: ($) =>
-  prec.right(seq(choice($.variable_expression, $.index_expression, $.member_expression), "=", $._expression)),
+  prec.right(seq(choice($.variable_expression, $.index_expression, $.member_expression), choice("=", "+=", "-=", "*=", "/=", "%=", "|="), $._expression)),
 
 logical_expression: ($) =>
   prec.left(choice(seq($._expression, choice("||", "&&"), $._expression))),
