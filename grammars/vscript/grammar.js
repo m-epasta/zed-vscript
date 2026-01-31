@@ -70,7 +70,7 @@ conflicts: ($) => [
 	rules: {
 		source_file: ($) => seq(optional(seq($.module_declaration, $._terminator)), repeat($._statement), optional($._terminator)),
 
-		module_declaration: ($) => seq("module", $._identifier),
+		module_declaration: ($) => seq("module", $.identifier),
 
 		_statement: ($) =>
 			choice(
@@ -92,7 +92,7 @@ conflicts: ($) => [
 		class_declaration: ($) =>
 			seq(
 				"class",
-				$._identifier,
+				$.identifier,
 				"{",
 				repeat(
 					seq(
@@ -101,7 +101,7 @@ conflicts: ($) => [
 								"@[",
 								repeat(
 									seq(
-										$._identifier,
+										$.identifier,
 										optional(seq(":", $._expression)),
 										optional(seq("(", $._expression, ")")),
 										optional(","),
@@ -120,7 +120,7 @@ conflicts: ($) => [
 		struct_declaration: ($) =>
 			seq(
 				"struct",
-				$._identifier,
+				$.identifier,
 				"{",
 				repeat(
 					seq(
@@ -129,7 +129,7 @@ conflicts: ($) => [
 								"@[",
 								repeat(
 									seq(
-										$._identifier,
+										$.identifier,
 										optional(seq(":", $._expression)),
 										optional(seq("(", $._expression, ")")),
 										optional(","),
@@ -149,12 +149,12 @@ conflicts: ($) => [
 		enum_declaration: ($) =>
 			seq(
 				"enum",
-				$._identifier,
+				$.identifier,
 				"{",
 				repeat(
 					seq(
-						$._identifier,
-						optional(seq("(", repeat(seq($._identifier, optional(seq(",", $._terminator)))), ")")),
+						$.identifier,
+						optional(seq("(", repeat(seq($.identifier, optional(seq(",", $._terminator)))), ")")),
 						optional(seq(",", $._terminator)),
 					),
 				),
@@ -165,7 +165,7 @@ conflicts: ($) => [
 			seq(
 				optional("async"),
 				"fn",
-				field("name", $._identifier),
+				field("name", $.identifier),
 				field("parameters", $.parameter_list),
 				field("body", $.block),
 			),
@@ -173,7 +173,7 @@ conflicts: ($) => [
 		parameter_list: ($) =>
 			seq(
 				"(",
-				optional(seq($._identifier, repeat(seq(",", $._terminator, $._identifier)))),
+				optional(seq($.identifier, repeat(seq(",", $._terminator, $.identifier)))),
 				")",
 			),
 
@@ -185,14 +185,14 @@ conflicts: ($) => [
 			),
 
 		var_declaration: ($) =>
-			seq("let", $._identifier, optional(seq("=", $._expression)), $._terminator),
+			seq("let", $.identifier, optional(seq("=", $._expression)), $._terminator),
 
 		import_statement: ($) =>
 			seq(
 				"import",
 				choice(
 					seq('"', /[^"]+/, '"'),
-					seq($._identifier, repeat(seq(":", $._identifier)), optional(seq("as", $._identifier))),
+					seq($.identifier, repeat(seq(":", $.identifier)), optional(seq("as", $.identifier))),
 				),
 				$._terminator,
 			),
@@ -209,7 +209,7 @@ if_statement: ($) =>
 				"for",
 				"(",
 				choice(
-					seq("let", $._identifier, "=", $._expression, ";", $._expression, ";", $._expression),
+					seq("let", $.identifier, "=", $._expression, ";", $._expression, ";", $._expression),
 					seq($._expression, ";", $._expression, ";", $._expression),
 					seq($._expression, ";", $._expression),
 					seq(";", $._expression, ";"),
@@ -226,7 +226,7 @@ if_statement: ($) =>
 				"}",
 				"catch",
 				"(",
-				$._identifier,
+				$.identifier,
 				")",
 				"{",
 				repeat($._statement),
@@ -280,7 +280,7 @@ binary_expression: ($) =>
 				")",
 			),
 
-		member_expression: ($) => seq($._expression, ".", $._identifier),
+		member_expression: ($) => seq($._expression, ".", $.identifier),
 
 		index_expression: ($) => seq($._expression, "[", $._expression, "]"),
 
@@ -316,7 +316,7 @@ binary_expression: ($) =>
 
 		nil_literal: ($) => "nil",
 
-		variable_expression: ($) => $._identifier,
+		variable_expression: ($) => $.identifier,
 
 	this_expression: ($) => "this",
 
@@ -344,7 +344,7 @@ binary_expression: ($) =>
 			optional("async"),
 			"fn",
 			"(",
-			optional(seq($._identifier, repeat(seq(",", $._terminator, $._identifier)))),
+			optional(seq($.identifier, repeat(seq(",", $._terminator, $.identifier)))),
 			")",
 			"{",
 			repeat($._statement),
@@ -370,13 +370,13 @@ binary_expression: ($) =>
 		literal_pattern: ($) =>
 			choice($.number_literal, $.string_literal, $.boolean_literal, $.nil_literal),
 
-		identifier_pattern: ($) => $._identifier,
+		identifier_pattern: ($) => $.identifier,
 
 variant_pattern: ($) =>
   seq(
-    optional(seq($._identifier, ".")),
-    $._identifier,
-    optional(seq("(", repeat(seq($._identifier, optional(seq(",", $._terminator)))), ")")),
+    optional(seq($.identifier, ".")),
+    $.identifier,
+    optional(seq("(", repeat(seq($.identifier, optional(seq(",", $._terminator)))), ")")),
   ),
 
 		interpolated_string: ($) =>
@@ -387,22 +387,22 @@ variant_pattern: ($) =>
 		interpolation_opening: ($) => "${",
 		interpolation_closing: ($) => "}",
 
-		struct_field: ($) => seq($._identifier, $._identifier, optional(seq("=", $._expression))),
+		struct_field: ($) => seq($.identifier, $.identifier, optional(seq("=", $._expression))),
 
 		method: ($) =>
 		seq(
 			optional("async"),
 			"fn",
-			$._identifier,
+			$.identifier,
 			"(",
-			optional(seq($._identifier, repeat(seq(",", $._terminator, $._identifier)))),
+			optional(seq($.identifier, repeat(seq(",", $._terminator, $.identifier)))),
 			")",
 			"{",
 			repeat($._statement),
 			"}",
 		),
 
-		_identifier: ($) => /[a-zA-Zα-ωΑ-Ωµ_][a-zA-Zα-ωΑ-Ωµ_0-9]*/,
+		identifier: ($) => /[a-zA-Zα-ωΑ-Ωµ_][a-zA-Zα-ωΑ-Ωµ_0-9]*/,
 
 		_terminator: ($) => ";",
 
